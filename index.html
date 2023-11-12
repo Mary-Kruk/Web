@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+
+  <title>Posts Management</title>
+
+</head>
+<body>
+
+    <div id="app">
+      <h2>Posts Management</h2>
+  
+      <form id="postForm">
+        <label for="postTitle">Title:</label>
+        <input type="text" id="postTitle" required>
+  
+        <label for="postDescription">Description:</label>
+        <textarea id="postDescription" required></textarea>
+  
+        <label for="postAuthor">Author:</label>
+        <input type="text" id="postAuthor" required>
+  
+        <button type="button" onclick="createPost()">Create Post</button>
+      </form>
+  
+      <ul id="postsList"></ul>
+    </div>
+  
+    <script>
+      function createPost() {
+        const title = document.getElementById('postTitle').value;
+        const description = document.getElementById('postDescription').value;
+        const author = document.getElementById('postAuthor').value;
+  
+        const postList = document.getElementById('postsList');
+        const listItem = document.createElement('li');
+        listItem.className = 'post';
+        listItem.innerHTML = `<strong>${title}</strong> - ${description} by ${author} <button onclick="editPost(this)">Edit</button> <button onclick="removePost(this)">Remove</button>`;
+  
+        postList.appendChild(listItem);
+  
+        document.getElementById('postTitle').value = '';
+        document.getElementById('postDescription').value = '';
+        document.getElementById('postAuthor').value = '';
+      }
+  
+      function editPost(button) {
+        const listItem = button.parentElement;
+        const title = listItem.querySelector('strong').innerText;
+        const description = listItem.innerText.split('-')[1].split('by')[0].trim();
+        const author = listItem.innerText.split('by')[1].trim();
+  
+        document.getElementById('postTitle').value = title;
+        document.getElementById('postDescription').value = description;
+        document.getElementById('postAuthor').value = author;
+  
+        listItem.remove();
+      }
+  
+      function removePost(button) {
+        const listItem = button.parentElement;
+        listItem.remove();
+      }
+    </script>
+  
+  </body>
+</body>
+
+</body>
+</html>
